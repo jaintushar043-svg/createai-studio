@@ -201,7 +201,7 @@ function LandingPage() {
       </section>
 
       <footer className="py-10 border-t border-border flex flex-col md:flex-row justify-between gap-4 px-6 md:px-12">
-        <p className="text-xs font-mono text-muted-foreground">© 2026 TECHMARQX — MARQCREATIVE AI — ALL RIGHTS RESERVED</p>
+        <p className="text-xs font-mono text-muted-foreground">© 2026 TECHMARQX — MARQCREATIVE AI · A CHEGE COMPANY — ALL RIGHTS RESERVED</p>
         <div className="flex gap-6 text-xs font-mono text-muted-foreground uppercase">
           <Link to="/templates" className="hover:text-foreground">Templates</Link>
           <Link to="/pricing" className="hover:text-foreground">Pricing</Link>
