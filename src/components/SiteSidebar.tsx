@@ -1,8 +1,10 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { Sparkles, ImageIcon, Video, LayoutGrid, CreditCard } from "lucide-react";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { Sparkles, ImageIcon, Video, LayoutGrid, CreditCard, LayoutDashboard, LogOut, LogIn } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
   { to: "/", icon: Sparkles, label: "Home" },
+  { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/image-lab", icon: ImageIcon, label: "Image Lab" },
   { to: "/video-studio", icon: Video, label: "Video Studio" },
   { to: "/templates", icon: LayoutGrid, label: "Templates" },
@@ -11,6 +13,8 @@ const navItems = [
 
 export function SiteSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -40,8 +44,25 @@ export function SiteSidebar() {
           );
         })}
       </div>
-      <div className="mt-auto">
-        <div className="size-10 rounded-full bg-secondary border border-border" />
+      <div className="mt-auto flex flex-col items-center gap-3">
+        {user ? (
+          <button
+            onClick={async () => { await signOut(); navigate({ to: "/" }); }}
+            aria-label="Sign out"
+            title="Sign out"
+            className="size-10 rounded-xl flex items-center justify-center bg-white/[0.03] text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="size-4" />
+          </button>
+        ) : (
+          <Link to="/login" aria-label="Sign in" title="Sign in"
+            className="size-10 rounded-xl flex items-center justify-center bg-white/[0.03] text-muted-foreground hover:text-foreground">
+            <LogIn className="size-4" />
+          </Link>
+        )}
+        <div className="size-10 rounded-full bg-secondary border border-border overflow-hidden flex items-center justify-center text-xs font-semibold">
+          {user ? (user.email?.[0]?.toUpperCase() ?? "U") : ""}
+        </div>
       </div>
     </nav>
   );

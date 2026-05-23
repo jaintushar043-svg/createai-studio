@@ -10,6 +10,8 @@ import {
 
 import appCss from "../styles.css?url";
 import { SiteSidebar } from "@/components/SiteSidebar";
+import { AuthProvider } from "@/hooks/use-auth";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -92,12 +94,14 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
-        <SiteSidebar />
-        <div className="pl-20">
-          <Outlet />
+      <AuthProvider>
+        <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+          <SiteSidebar />
+          <div className="pl-20">
+            <Outlet />
+          </div>
         </div>
-      </div>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
