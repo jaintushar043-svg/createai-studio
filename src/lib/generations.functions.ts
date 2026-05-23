@@ -36,7 +36,6 @@ export const generateImage = createServerFn({ method: "POST" })
     const { data: newBalance, error: deductErr } = await supabase.rpc("deduct_credits", {
       _amount: IMAGE_CREDIT_COST,
       _reason: "image_generation",
-      _generation_id: null,
     });
     if (deductErr) {
       if (deductErr.message?.includes("insufficient_credits")) {
