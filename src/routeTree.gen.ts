@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VideoStudioRouteImport } from './routes/video-studio'
 import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ImageLabRouteImport } from './routes/image-lab'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VideoStudioRoute = VideoStudioRouteImport.update({
@@ -25,14 +28,29 @@ const TemplatesRoute = TemplatesRouteImport.update({
   path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImageLabRoute = ImageLabRouteImport.update({
   id: '/image-lab',
   path: '/image-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,44 +61,75 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/image-lab': typeof ImageLabRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/image-lab': typeof ImageLabRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/image-lab': typeof ImageLabRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/image-lab' | '/pricing' | '/templates' | '/video-studio'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/image-lab'
+    | '/login'
+    | '/pricing'
+    | '/register'
+    | '/templates'
+    | '/video-studio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/image-lab' | '/pricing' | '/templates' | '/video-studio'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/image-lab'
+    | '/login'
+    | '/pricing'
+    | '/register'
+    | '/templates'
+    | '/video-studio'
   id:
     | '__root__'
     | '/'
+    | '/dashboard'
     | '/image-lab'
+    | '/login'
     | '/pricing'
+    | '/register'
     | '/templates'
     | '/video-studio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
   ImageLabRoute: typeof ImageLabRoute
+  LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
+  RegisterRoute: typeof RegisterRoute
   TemplatesRoute: typeof TemplatesRoute
   VideoStudioRoute: typeof VideoStudioRoute
 }
@@ -101,6 +150,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -108,11 +164,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/image-lab': {
       id: '/image-lab'
       path: '/image-lab'
       fullPath: '/image-lab'
       preLoaderRoute: typeof ImageLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,8 +197,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
   ImageLabRoute: ImageLabRoute,
+  LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
+  RegisterRoute: RegisterRoute,
   TemplatesRoute: TemplatesRoute,
   VideoStudioRoute: VideoStudioRoute,
 }
