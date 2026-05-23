@@ -59,9 +59,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CreateAI — AI Image & Video Generation Studio" },
+      { title: "TechmarqX — AI Image & Video Generation Studio" },
       { name: "description", content: "Generate cinematic images, videos, ads and thumbnails from a prompt. Premium AI studio for creators, agencies and brands." },
-      { property: "og:title", content: "CreateAI — AI Image & Video Generation Studio" },
+      { property: "og:title", content: "TechmarqX — AI Image & Video Generation Studio" },
       { property: "og:description", content: "Premium AI studio for generating images, videos, ads and marketing content from prompts." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

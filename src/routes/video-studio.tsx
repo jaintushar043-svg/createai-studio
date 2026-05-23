@@ -6,9 +6,9 @@ import gallery3 from "@/assets/gallery-3.jpg";
 export const Route = createFileRoute("/video-studio")({
   head: () => ({
     meta: [
-      { title: "Video Studio — CreateAI" },
+      { title: "Video Studio — TechmarqX" },
       { name: "description", content: "Generate AI videos, reels, marketing ads and AI avatars with voiceover support. Export MP4." },
-      { property: "og:title", content: "Video Studio — CreateAI" },
+      { property: "og:title", content: "Video Studio — TechmarqX" },
       { property: "og:description", content: "Generate AI videos, reels and marketing ads with voiceover." },
     ],
   }),

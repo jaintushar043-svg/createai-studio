@@ -9,9 +9,9 @@ import float2 from "@/assets/float-2.jpg";
 export const Route = createFileRoute("/templates")({
   head: () => ({
     meta: [
-      { title: "Templates — CreateAI" },
+      { title: "Templates — TechmarqX" },
       { name: "description", content: "Ratio-ready templates for YouTube thumbnails, Instagram posts, ads, product photos and recruitment banners." },
-      { property: "og:title", content: "Templates — CreateAI" },
+      { property: "og:title", content: "Templates — TechmarqX" },
       { property: "og:description", content: "Templates for thumbnails, social posts, ads and product photos." },
     ],
   }),

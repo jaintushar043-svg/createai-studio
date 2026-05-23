@@ -10,9 +10,9 @@ import float2 from "@/assets/float-2.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CreateAI — Generate Stunning Images & Videos with AI" },
+      { title: "TechmarqX — Generate Stunning Images & Videos with AI" },
       { name: "description", content: "Transform prompts into cinematic images, videos, ads, thumbnails and marketing content. Built for creators, agencies and ecommerce brands." },
-      { property: "og:title", content: "CreateAI — Generate Stunning Images & Videos with AI" },
+      { property: "og:title", content: "TechmarqX — Generate Stunning Images & Videos with AI" },
       { property: "og:description", content: "Transform prompts into cinematic images, videos and marketing content." },
     ],
   }),
@@ -133,7 +133,7 @@ function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Studio Gallery</h2>
-              <p className="text-muted-foreground mt-2">Curated results from the CreateAI community</p>
+              <p className="text-muted-foreground mt-2">Curated results from the TechmarqX community</p>
             </div>
             <div className="flex gap-3">
               <button className="px-4 py-2 rounded-lg border border-border text-sm hover:bg-white/5 transition-colors">Image Feed</button>
@@ -201,7 +201,7 @@ function LandingPage() {
       </section>
 
       <footer className="py-10 border-t border-border flex flex-col md:flex-row justify-between gap-4 px-6 md:px-12">
-        <p className="text-xs font-mono text-muted-foreground">© 2026 CREATEAI STUDIO — ALL RIGHTS RESERVED</p>
+        <p className="text-xs font-mono text-muted-foreground">© 2026 TECHMARQX — MARQCREATIVE AI — ALL RIGHTS RESERVED</p>
         <div className="flex gap-6 text-xs font-mono text-muted-foreground uppercase">
           <Link to="/templates" className="hover:text-foreground">Templates</Link>
           <Link to="/pricing" className="hover:text-foreground">Pricing</Link>
