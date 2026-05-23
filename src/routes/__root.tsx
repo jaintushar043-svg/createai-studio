@@ -100,6 +100,7 @@ function RootComponent() {
           <div className="pl-20">
             <Outlet />
           </div>
+          <Toaster />
         </div>
       </AuthProvider>
     </QueryClientProvider>
