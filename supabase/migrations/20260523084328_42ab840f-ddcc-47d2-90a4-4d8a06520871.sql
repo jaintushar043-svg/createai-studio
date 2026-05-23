@@ -1,0 +1,2 @@
+REVOKE EXECUTE ON FUNCTION public.grant_credits(uuid, integer, text, jsonb) FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.apply_plan(uuid, plan_tier, text, text, text, timestamptz) FROM PUBLIC, anon, authenticated;
