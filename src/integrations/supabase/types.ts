@@ -103,6 +103,54 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_orders: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          credits: number
+          currency: string
+          id: string
+          kind: string
+          metadata: Json
+          plan: Database["public"]["Enums"]["plan_tier"] | null
+          provider: string
+          provider_order_id: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          credits?: number
+          currency?: string
+          id?: string
+          kind: string
+          metadata?: Json
+          plan?: Database["public"]["Enums"]["plan_tier"] | null
+          provider: string
+          provider_order_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          credits?: number
+          currency?: string
+          id?: string
+          kind?: string
+          metadata?: Json
+          plan?: Database["public"]["Enums"]["plan_tier"] | null
+          provider?: string
+          provider_order_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -111,6 +159,8 @@ export type Database = {
           display_name: string | null
           email: string | null
           id: string
+          monthly_credit_grant_at: string | null
+          plan: Database["public"]["Enums"]["plan_tier"]
           updated_at: string
         }
         Insert: {
@@ -120,6 +170,8 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           id: string
+          monthly_credit_grant_at?: string | null
+          plan?: Database["public"]["Enums"]["plan_tier"]
           updated_at?: string
         }
         Update: {
@@ -129,7 +181,48 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           id?: string
+          monthly_credit_grant_at?: string | null
+          plan?: Database["public"]["Enums"]["plan_tier"]
           updated_at?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          id: string
+          plan: Database["public"]["Enums"]["plan_tier"]
+          provider: string
+          provider_customer_id: string | null
+          provider_subscription_id: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan: Database["public"]["Enums"]["plan_tier"]
+          provider: string
+          provider_customer_id?: string | null
+          provider_subscription_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan?: Database["public"]["Enums"]["plan_tier"]
+          provider?: string
+          provider_customer_id?: string | null
+          provider_subscription_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -159,8 +252,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_plan: {
+        Args: {
+          _period_end: string
+          _plan: Database["public"]["Enums"]["plan_tier"]
+          _provider: string
+          _provider_customer_id: string
+          _provider_subscription_id: string
+          _user_id: string
+        }
+        Returns: undefined
+      }
       deduct_credits: {
         Args: { _amount: number; _generation_id?: string; _reason: string }
+        Returns: number
+      }
+      grant_credits: {
+        Args: {
+          _amount: number
+          _metadata?: Json
+          _reason: string
+          _user_id: string
+        }
         Returns: number
       }
       has_role: {
@@ -173,6 +286,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      plan_tier: "free" | "pro" | "enterprise"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -301,6 +415,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      plan_tier: ["free", "pro", "enterprise"],
     },
   },
 } as const
