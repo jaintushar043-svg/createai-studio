@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VideoStudioRouteImport } from './routes/video-studio'
+import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ImageLabRouteImport } from './routes/image-lab'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VideoStudioRoute = VideoStudioRouteImport.update({
+  id: '/video-studio',
+  path: '/video-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImageLabRoute = ImageLabRouteImport.update({
+  id: '/image-lab',
+  path: '/image-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,78 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/image-lab': typeof ImageLabRoute
+  '/pricing': typeof PricingRoute
+  '/templates': typeof TemplatesRoute
+  '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/image-lab': typeof ImageLabRoute
+  '/pricing': typeof PricingRoute
+  '/templates': typeof TemplatesRoute
+  '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/image-lab': typeof ImageLabRoute
+  '/pricing': typeof PricingRoute
+  '/templates': typeof TemplatesRoute
+  '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/image-lab' | '/pricing' | '/templates' | '/video-studio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/image-lab' | '/pricing' | '/templates' | '/video-studio'
+  id:
+    | '__root__'
+    | '/'
+    | '/image-lab'
+    | '/pricing'
+    | '/templates'
+    | '/video-studio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ImageLabRoute: typeof ImageLabRoute
+  PricingRoute: typeof PricingRoute
+  TemplatesRoute: typeof TemplatesRoute
+  VideoStudioRoute: typeof VideoStudioRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/video-studio': {
+      id: '/video-studio'
+      path: '/video-studio'
+      fullPath: '/video-studio'
+      preLoaderRoute: typeof VideoStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/image-lab': {
+      id: '/image-lab'
+      path: '/image-lab'
+      fullPath: '/image-lab'
+      preLoaderRoute: typeof ImageLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +127,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ImageLabRoute: ImageLabRoute,
+  PricingRoute: PricingRoute,
+  TemplatesRoute: TemplatesRoute,
+  VideoStudioRoute: VideoStudioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
