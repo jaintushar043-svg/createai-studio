@@ -7,9 +7,9 @@ const IMAGE_MODEL = "google/gemini-2.5-flash-image";
 
 const generateInput = z.object({
   prompt: z.string().trim().min(3, "Prompt too short").max(2000),
-  negativePrompt: z.string().trim().max(500).optional().nullable(),
-  style: z.string().trim().max(50).optional().nullable(),
-  aspectRatio: z.string().trim().max(10).optional().nullable(),
+  negativePrompt: z.string().trim().max(500).optional(),
+  style: z.string().trim().max(50).optional(),
+  aspectRatio: z.string().trim().max(10).optional(),
 });
 
 function dataUrlToBytes(dataUrl: string): { bytes: Uint8Array; contentType: string; ext: string } {
