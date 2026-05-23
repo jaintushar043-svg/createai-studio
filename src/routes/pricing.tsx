@@ -4,9 +4,9 @@ import { Check, Zap } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — CreateAI" },
+      { title: "Pricing — TechmarqX" },
       { name: "description", content: "Simple credit-based pricing for AI image and video generation. Free tier available." },
-      { property: "og:title", content: "Pricing — CreateAI" },
+      { property: "og:title", content: "Pricing — TechmarqX" },
       { property: "og:description", content: "Simple credit-based pricing for AI image and video generation." },
     ],
   }),

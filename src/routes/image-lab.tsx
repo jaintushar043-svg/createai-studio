@@ -8,9 +8,9 @@ import gallery4 from "@/assets/gallery-4.jpg";
 export const Route = createFileRoute("/image-lab")({
   head: () => ({
     meta: [
-      { title: "Image Lab — CreateAI" },
+      { title: "Image Lab — TechmarqX" },
       { name: "description", content: "Generate AI images from text prompts. Choose from realistic, cinematic, anime, logo, product and fantasy styles." },
-      { property: "og:title", content: "Image Lab — CreateAI" },
+      { property: "og:title", content: "Image Lab — TechmarqX" },
       { property: "og:description", content: "Generate AI images from text prompts in seconds." },
     ],
   }),
