@@ -17,8 +17,8 @@ export function SiteSidebar() {
       aria-label="Primary"
       className="fixed left-0 top-0 bottom-0 w-20 border-r border-border bg-background/60 backdrop-blur-xl z-50 flex flex-col items-center py-8 gap-10"
     >
-      <Link to="/" className="size-10 bg-primary rounded-xl flex items-center justify-center font-bold text-primary-foreground shadow-glow">
-        C
+      <Link to="/" aria-label="TechmarqX home" title="TechmarqX — MarqCreative AI" className="size-10 bg-primary rounded-xl flex items-center justify-center font-bold text-primary-foreground shadow-glow">
+        T
       </Link>
       <div className="flex flex-col gap-3">
         {navItems.map(({ to, icon: Icon, label }) => {
