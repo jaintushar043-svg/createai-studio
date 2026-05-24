@@ -171,31 +171,31 @@ function LandingPage() {
       </section>
 
       {/* Pricing CTA */}
-      <section className="px-6 md:px-12 py-24 bg-card/40">
-        <div className="max-w-6xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+      <section className="px-6 md:px-12 py-20 md:py-24 bg-card/40">
+        <div className="max-w-6xl mx-auto glass-panel rounded-[2rem] p-6 sm:p-8 md:p-12 flex flex-col md:flex-row md:items-center gap-8 md:gap-10">
           <div className="flex-1">
             <Zap className="size-6 text-primary mb-4" />
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Ready to scale your output?</h3>
-            <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-xl">
-              Unlock unlimited generations, HD upscaling and commercial rights with the Pro tier.
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Top up. Generate. Repeat.</h3>
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-xl">
+              Pay-as-you-go INR credits via Razorpay. No subscription lock-in — credits never expire.
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-5 sm:gap-6">
               <div className="flex flex-col">
-                <span className="text-2xl font-bold">$29<span className="text-sm text-muted-foreground">/mo</span></span>
-                <span className="text-xs font-mono text-primary uppercase tracking-widest">Professional</span>
+                <span className="text-xl sm:text-2xl font-bold">₹10<span className="text-sm text-muted-foreground"> = 50</span></span>
+                <span className="text-[10px] sm:text-xs font-mono text-primary uppercase tracking-widest">Starter</span>
               </div>
-              <div className="w-px h-12 bg-border" />
+              <div className="w-px h-10 sm:h-12 bg-border" />
               <div className="flex flex-col">
-                <span className="text-2xl font-bold">Unlimited</span>
-                <span className="text-xs font-mono text-primary uppercase tracking-widest">Credits</span>
+                <span className="text-xl sm:text-2xl font-bold">₹100<span className="text-sm text-muted-foreground"> = 700</span></span>
+                <span className="text-[10px] sm:text-xs font-mono text-primary uppercase tracking-widest">Creator</span>
               </div>
             </div>
           </div>
           <Link
             to="/pricing"
-            className="w-full md:w-auto px-10 md:px-12 py-5 bg-primary text-primary-foreground font-black rounded-2xl hover:scale-105 transition-transform shadow-glow text-center"
+            className="w-full md:w-auto px-8 md:px-12 py-4 md:py-5 bg-primary text-primary-foreground font-black rounded-2xl hover:scale-105 transition-transform shadow-glow text-center"
           >
-            Get Full Access
+            See top-up packs
           </Link>
         </div>
       </section>
