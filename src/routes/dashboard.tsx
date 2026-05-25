@@ -50,7 +50,7 @@ function DashboardPage() {
   const completed = (gens.data ?? []).filter((g) => g.status === "succeeded").length;
   const totalSpent = (gens.data ?? []).reduce((s, g) => s + (g.credits_used ?? 0), 0);
   const credits = profile.data?.credits ?? 0;
-  const plan = profile.data?.plan ?? "free";
+  
   const lowBalance = credits < 10;
 
   return (
