@@ -50,7 +50,7 @@ function DashboardPage() {
   const completed = (gens.data ?? []).filter((g) => g.status === "succeeded").length;
   const totalSpent = (gens.data ?? []).reduce((s, g) => s + (g.credits_used ?? 0), 0);
   const credits = profile.data?.credits ?? 0;
-  const plan = profile.data?.plan ?? "free";
+  
   const lowBalance = credits < 10;
 
   return (
@@ -86,14 +86,14 @@ function DashboardPage() {
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
-        <StatCard icon={CreditCard} label="Credits" value={profile.isLoading ? "—" : credits} accent action={
+        <StatCard icon={CreditCard} label="Remaining credits" value={profile.isLoading ? "—" : credits} accent action={
           <Link to="/pricing" className="text-[10px] font-mono uppercase tracking-widest text-primary inline-flex items-center gap-1">
-            <Plus className="size-3" /> Top up
+            <Plus className="size-3" /> Buy credits
           </Link>
         } />
-        <StatCard icon={Crown} label="Plan" value={<span className="capitalize">{plan}</span>} />
+        <StatCard icon={Clock} label="Usage (spent)" value={totalSpent} />
         <StatCard icon={ImageIcon} label="Generations" value={completed} />
-        <StatCard icon={Clock} label="Credits spent" value={totalSpent} />
+        <StatCard icon={Crown} label="Lifetime" value={credits + totalSpent} />
       </div>
 
       {/* History */}

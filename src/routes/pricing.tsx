@@ -1,130 +1,126 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Zap, ExternalLink, ShieldCheck, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, ShieldCheck, Sparkles, Zap, Coins } from "lucide-react";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Top-ups & Pricing — MarqCreative AI" },
-      { name: "description", content: "INR credit top-ups via Razorpay. ₹100 = 700 credits, ₹500 = 4000 credits." },
-      { property: "og:title", content: "Top-ups & Pricing — MarqCreative AI" },
-      { property: "og:description", content: "INR credit top-ups via Razorpay." },
+      { title: "Buy Credits — MarqCreative AI" },
+      { name: "description", content: "Pay-as-you-go credits. ₹1 = 1 credit. No plans, no subscriptions." },
+      { property: "og:title", content: "Buy Credits — MarqCreative AI" },
+      { property: "og:description", content: "Pay only for what you use. ₹1 = 1 credit." },
     ],
   }),
   component: PricingPage,
 });
 
 const RAZORPAY_LINK = "https://razorpay.me/@techmarqxprivatelimited";
-
-type Pack = {
-  id: string;
-  inr: number;
-  credits: number;
-  label: string;
-  note: string;
-  popular?: boolean;
-  savings?: string;
-};
-
-const packs: Pack[] = [
-  { id: "creator", inr: 100, credits: 700, label: "Creator", note: "≈ 350 images · 70 videos", popular: true, savings: "40% more credits" },
-  { id: "studio", inr: 500, credits: 4000, label: "Studio", note: "≈ 2,000 images · 400 videos", savings: "60% more credits" },
-];
-
-function buildPayUrl(inr: number) {
-  return `${RAZORPAY_LINK}/${inr}`;
-}
+const MIN = 10;
+const MAX = 100000;
+const QUICK = [100, 500, 1000, 2000];
 
 function PricingPage() {
+  const [amount, setAmount] = useState<string>("100");
+
+  const parsed = Number(amount);
+  const valid = Number.isFinite(parsed) && parsed >= MIN && parsed <= MAX && Number.isInteger(parsed);
+  const credits = valid ? parsed : 0;
+
+  const payUrl = valid ? `${RAZORPAY_LINK}/${parsed}` : RAZORPAY_LINK;
+
   return (
     <main className="min-h-screen px-4 sm:px-6 md:px-12 py-10 sm:py-16 md:py-24">
       <header className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-        <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-primary mb-3 sm:mb-4">Top-ups · INR</p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 sm:mb-4">Pay only for what you create</h1>
-        <p className="text-sm sm:text-base text-muted-foreground px-2">Secure UPI, cards & netbanking via Razorpay. Credits never expire.</p>
+        <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-primary mb-3 sm:mb-4">Pay as you go</p>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 sm:mb-4">Buy credits, your amount</h1>
+        <p className="text-sm sm:text-base text-muted-foreground px-2">
+          <span className="text-foreground font-semibold">₹1 = 1 credit.</span> No plans. No subscriptions. Pay only for what you use.
+        </p>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-3xl mx-auto mb-12 sm:mb-16">
-        {packs.map((p) => (
-          <TopUpCard key={p.id} pack={p} />
-        ))}
-      </div>
+      <section className="max-w-xl mx-auto glass-panel rounded-3xl p-6 sm:p-8 ring-1 ring-primary/20 shadow-glow mb-10">
+        <label htmlFor="amount" className="block text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-3">
+          Enter amount (INR)
+        </label>
 
-      <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-12 sm:mb-16">
-        <TrustChip icon={ShieldCheck} title="Verified by Razorpay" sub="UPI · Cards · Netbanking" />
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl font-bold text-muted-foreground select-none">₹</span>
+          <input
+            id="amount"
+            type="number"
+            inputMode="numeric"
+            min={MIN}
+            max={MAX}
+            step={1}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value.replace(/[^\d]/g, ""))}
+            placeholder="100"
+            className="w-full rounded-2xl bg-background/60 border border-border focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none pl-10 sm:pl-12 pr-4 py-4 text-2xl sm:text-3xl font-bold tabular-nums transition"
+          />
+        </div>
+
+        <div className="flex flex-wrap gap-2 mt-3">
+          {QUICK.map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setAmount(String(v))}
+              className={`text-xs font-semibold rounded-full px-3 py-1.5 border transition ${
+                parsed === v
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-secondary/40 text-foreground border-border hover:border-primary/50"
+              }`}
+            >
+              ₹{v.toLocaleString()}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 flex items-center justify-between rounded-xl bg-primary/5 ring-1 ring-primary/20 px-4 py-3">
+          <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1.5">
+            <Coins className="size-3.5 text-primary" /> You get
+          </span>
+          <span className="text-xl sm:text-2xl font-bold text-gradient tabular-nums">
+            {credits.toLocaleString()} <span className="text-sm text-muted-foreground font-medium">credits</span>
+          </span>
+        </div>
+
+        {!valid && amount !== "" && (
+          <p className="text-xs text-destructive mt-2">Enter a whole amount between ₹{MIN} and ₹{MAX.toLocaleString()}.</p>
+        )}
+
+        <a
+          href={payUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!valid}
+          onClick={(e) => { if (!valid) e.preventDefault(); }}
+          className={`mt-5 w-full rounded-xl py-3.5 font-bold inline-flex items-center justify-center gap-2 transition-all active:scale-[0.98] ${
+            valid
+              ? "bg-primary text-primary-foreground hover:opacity-90 shadow-glow"
+              : "bg-secondary text-muted-foreground cursor-not-allowed opacity-60"
+          }`}
+        >
+          Buy Credits {valid && <>· ₹{parsed.toLocaleString()}</>} <ExternalLink className="size-4" />
+        </a>
+
+        <p className="text-[11px] text-muted-foreground text-center mt-3">
+          You'll be redirected to Razorpay. Credits are added after payment is confirmed.
+        </p>
+      </section>
+
+      <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-12">
+        <TrustChip icon={ShieldCheck} title="Secure by Razorpay" sub="UPI · Cards · Netbanking" />
         <TrustChip icon={Sparkles} title="Credits never expire" sub="Use whenever you want" />
-        <TrustChip icon={Zap} title="Added after payment" sub="Usually within minutes" />
+        <TrustChip icon={Zap} title="₹1 = 1 credit" sub="No hidden fees" />
       </div>
 
       <section className="max-w-2xl mx-auto text-center px-2">
-        <h2 className="text-xl sm:text-2xl font-bold mb-4">How it works</h2>
-        <ol className="text-sm text-muted-foreground space-y-2.5 text-left">
-          <li className="flex gap-3"><Step n={1}/><span>Pick a pack — we'll open Razorpay with the amount pre-filled.</span></li>
-          <li className="flex gap-3"><Step n={2}/><span>Pay with UPI, card or netbanking on the secure Razorpay page.</span></li>
-          <li className="flex gap-3"><Step n={3}/><span>You'll be redirected to a thank-you page. Credits land in your wallet shortly.</span></li>
-        </ol>
-        <p className="mt-6 text-sm">
-          <Link to="/dashboard" className="text-primary underline">Open your dashboard</Link> to track your balance.
+        <p className="text-sm">
+          <Link to="/dashboard" className="text-primary underline">Open your dashboard</Link> to see your balance and usage.
         </p>
       </section>
     </main>
-  );
-}
-
-function TopUpCard({ pack }: { pack: Pack }) {
-  return (
-    <article
-      className={`relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 border transition-all flex flex-col ${
-        pack.popular
-          ? "glass-panel border-primary/40 shadow-glow scale-[1.01]"
-          : "bg-card/40 border-border hover:border-border/80"
-      }`}
-    >
-      {pack.popular && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-mono uppercase tracking-widest whitespace-nowrap">
-          Most Popular
-        </span>
-      )}
-
-      <div className="flex items-center justify-between gap-2 mb-1">
-        <h3 className="text-lg font-bold flex items-center gap-1.5">
-          {pack.popular && <Zap className="size-4 text-primary" />}
-          {pack.label}
-        </h3>
-        {pack.savings && (
-          <span className="text-[10px] font-mono uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-            {pack.savings}
-          </span>
-        )}
-      </div>
-      <p className="text-xs text-muted-foreground mb-4">{pack.note}</p>
-
-      <div className="mb-3">
-        <span className="text-4xl font-bold tracking-tight">₹{pack.inr}</span>
-        <span className="text-xs text-muted-foreground ml-1">one-time</span>
-      </div>
-      <p className="text-sm mb-5">
-        <span className="text-primary font-bold text-lg">{pack.credits.toLocaleString()}</span>
-        <span className="text-muted-foreground ml-1">credits</span>
-      </p>
-
-      <a
-        href={buildPayUrl(pack.inr)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`w-full rounded-xl py-3 font-bold transition-all inline-flex items-center justify-center gap-2 active:scale-[0.98] ${
-          pack.popular
-            ? "bg-primary text-primary-foreground hover:opacity-90 shadow-glow"
-            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-        }`}
-      >
-        Pay ₹{pack.inr} <ExternalLink className="size-4" />
-      </a>
-
-      <ul className="space-y-1.5 mt-auto pt-4 border-t border-border/50 mt-4">
-        <li className="flex items-start gap-2 text-xs"><Check className="size-3.5 text-primary mt-0.5 shrink-0" /><span>UPI · Card · Netbanking</span></li>
-        <li className="flex items-start gap-2 text-xs"><Check className="size-3.5 text-primary mt-0.5 shrink-0" /><span>Credits never expire</span></li>
-      </ul>
-    </article>
   );
 }
 
@@ -139,13 +135,5 @@ function TrustChip({ icon: Icon, title, sub }: { icon: typeof ShieldCheck; title
         <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>
       </div>
     </div>
-  );
-}
-
-function Step({ n }: { n: number }) {
-  return (
-    <span className="size-6 shrink-0 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center">
-      {n}
-    </span>
   );
 }
