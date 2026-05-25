@@ -31,9 +31,7 @@ const packs: Pack[] = [
 ];
 
 function buildPayUrl(inr: number) {
-  // razorpay.me supports ?amount=<paise>; callback_url redirects after success
-  const callback = typeof window !== "undefined" ? `${window.location.origin}/thank-you` : "/thank-you";
-  return `${RAZORPAY_LINK}?amount=${inr * 100}&callback_url=${encodeURIComponent(callback)}`;
+  return `${RAZORPAY_LINK}/${inr}`;
 }
 
 function PricingPage() {
