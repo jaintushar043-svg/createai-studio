@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VideoStudioRouteImport } from './routes/video-studio'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VideoStudioRoute = VideoStudioRouteImport.update({
   id: '/video-studio',
   path: '/video-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TemplatesRoute = TemplatesRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
+  '/thank-you': typeof ThankYouRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
+  '/thank-you': typeof ThankYouRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
   '/templates': typeof TemplatesRoute
+  '/thank-you': typeof ThankYouRoute
   '/video-studio': typeof VideoStudioRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/templates'
+    | '/thank-you'
     | '/video-studio'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/templates'
+    | '/thank-you'
     | '/video-studio'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/register'
     | '/templates'
+    | '/thank-you'
     | '/video-studio'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   RegisterRoute: typeof RegisterRoute
   TemplatesRoute: typeof TemplatesRoute
+  ThankYouRoute: typeof ThankYouRoute
   VideoStudioRoute: typeof VideoStudioRoute
 }
 
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/video-studio'
       fullPath: '/video-studio'
       preLoaderRoute: typeof VideoStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/templates': {
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   RegisterRoute: RegisterRoute,
   TemplatesRoute: TemplatesRoute,
+  ThankYouRoute: ThankYouRoute,
   VideoStudioRoute: VideoStudioRoute,
 }
 export const routeTree = rootRouteImport
